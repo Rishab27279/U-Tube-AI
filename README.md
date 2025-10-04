@@ -32,57 +32,57 @@ The final output isn't just a summary; it's a **synthesized knowledge asset**. B
 
 ### Workflow at Glance:
 
-[START: User provides a YouTube Video URL]
- |
- |
- +--> [1. Data Ingestion & Parallel Processing]
- |    |
- |    |--> [A. VISUAL ANALYSIS PATH]
- |    |    |
- |    |    +--> [Step A1: Video Stream Access] -> (Raw Video Frames)
- |    |    |
- |    |    +--> [Step A2: Adaptive Frame Sampling] -> (Selects Keyframes with high information density like slides, code, diagrams)
- |    |    |
- |    |    L--> [Step A3: Optical Character Recognition (OCR)] -> (Output: Extracted text from visuals, e.g., "def function():", "Q3 Financials")
- |    |
- |    |
- |    L--> [B. AUDIO ANALYSIS PATH]
- |         |
- |         L--> [Step B1: Transcript Extraction] -> (Output: Full spoken transcript with timestamps)
- |
- |
- +--> [2. Initial Structuring with Gemini-Flash]
- |    (Input: Both visual text and spoken transcript are fed to the nimble model)
- |    |
- |    L--> [Step 2A: Topic & Structure Mapping] -> (Output: A high-level outline of the video, e.g., "1. Intro, 2. Core Concept, 3. Demo, 4. Q&A")
- |
- |
- +--> [3. Deep Synthesis with Gemini-Pro]
- |    (For EACH section in the outline, the powerful model performs a deep dive)
- |    |
- |    L--> [Step 3A: Multi-Modal Fusion]
- |         (Input: Outline section + relevant transcript part + relevant visual text)
- |         |
- |         L--> (Output: A rich, synthesized narrative chunk for that specific section, combining what was said and shown)
- |
- |
- +--> [4. RAG-Powered Document Assembly with ChromaDB]
- |    |
- |    +--> [Step 4A: Storing Context] -> (Each synthesized chunk is stored in ChromaDB, preserving its metadata and relationship to the outline)
- |    |
- |    L--> [Step 4B: Coherent Retrieval] -> (The system retrieves the chunks in order, ensuring context flows correctly)
- |    |
- |    L--> (Output: Final, fully assembled document content in a raw, structured format)
- |
- |
- L--> [5. Final Output Generation]
-      (User's choice determines the final format)
-      |
-      |--> [Choice A: Markdown] --> (Generates a clean, well-structured `notes.md` file)
-      |
-      |--> [Choice B: Word Document] --> (Generates a professional `notes.docx` file with headings)
-      |
-      L--> [Choice C: PDF] --> (Generates a portable, easy-to-share `notes.pdf` document)
+    [START: User provides a YouTube Video URL]
+     |
+     |
+     +--> [1. Data Ingestion & Parallel Processing]
+     |    |
+     |    |--> [A. VISUAL ANALYSIS PATH]
+     |    |    |
+     |    |    +--> [Step A1: Video Stream Access] -> (Raw Video Frames)
+     |    |    |
+     |    |    +--> [Step A2: Adaptive Frame Sampling] -> (Selects Keyframes with high information density like slides, code, diagrams)
+     |    |    |
+     |    |    L--> [Step A3: Optical Character Recognition (OCR)] -> (Output: Extracted text from visuals, e.g., "def function():", "Q3 Financials")
+     |    |
+     |    |
+     |    L--> [B. AUDIO ANALYSIS PATH]
+     |         |
+     |         L--> [Step B1: Transcript Extraction] -> (Output: Full spoken transcript with timestamps)
+     |
+     |
+     +--> [2. Initial Structuring with Gemini-Flash]
+     |    (Input: Both visual text and spoken transcript are fed to the nimble model)
+     |    |
+     |    L--> [Step 2A: Topic & Structure Mapping] -> (Output: A high-level outline of the video, e.g., "1. Intro, 2. Core Concept, 3. Demo, 4. Q&A")
+     |
+     |
+     +--> [3. Deep Synthesis with Gemini-Pro]
+     |    (For EACH section in the outline, the powerful model performs a deep dive)
+     |    |
+     |    L--> [Step 3A: Multi-Modal Fusion]
+     |         (Input: Outline section + relevant transcript part + relevant visual text)
+     |         |
+     |         L--> (Output: A rich, synthesized narrative chunk for that specific section, combining what was said and shown)
+     |
+     |
+     +--> [4. RAG-Powered Document Assembly with ChromaDB]
+     |    |
+     |    +--> [Step 4A: Storing Context] -> (Each synthesized chunk is stored in ChromaDB, preserving its metadata and relationship to the outline)
+     |    |
+     |    L--> [Step 4B: Coherent Retrieval] -> (The system retrieves the chunks in order, ensuring context flows correctly)
+     |    |
+     |    L--> (Output: Final, fully assembled document content in a raw, structured format)
+     |
+     |
+     L--> [5. Final Output Generation]
+          (User's choice determines the final format)
+          |
+          |--> [Choice A: Markdown] --> (Generates a clean, well-structured `notes.md` file)
+          |
+          |--> [Choice B: Word Document] --> (Generates a professional `notes.docx` file with headings)
+          |
+          L--> [Choice C: PDF] --> (Generates a portable, easy-to-share `notes.pdf` document)
 
 ## 🛠️ Tech Stack
 
