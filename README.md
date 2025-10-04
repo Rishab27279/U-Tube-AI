@@ -2,14 +2,9 @@
 
 > While most AI agents only listen to YouTube videos, mine watches, capturing the complete picture to deliver unparalleled understanding and truly comprehensive notes.
 
-![GitHub stars](https://img.shields.io/github/stars/Rishab27279/U-Tube-AI?style=social)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)
 
 ---
-
-
-*(A brief demo showing the process from video URL to final notes would be perfect here.)*
 
 ## ✨ About The Project
 
@@ -93,10 +88,9 @@ streamlit run app.py
 I warmly welcome contributions! Whether it's bug fixes, new features, or documentation improvements, please feel free to open issues and submit pull requests.
 
 - 🐛 Bug fixes
-- ✨ New features
+- ✨ New features or feature ideas
 - 📖 Documentation improvements
 - 🎨 UI/UX enhancements
-- ✨ Test on State-of-the-Art Benchmark
 
 ## ⭐ Support
 
@@ -110,6 +104,6 @@ If you find this project helpful, your support would mean the world:
 <p align="center">
   ---
   <br>
-  <strong>Made with ❤️ & 🔥 for the community</strong>
+  <strong>Made by Rishab with ❤️ & 🔥 for the community</strong>
   <br>
 </p>
