@@ -86,23 +86,24 @@ The final output isn't just a summary; it's a **synthesized knowledge asset**. B
 
 ### Core Framework
 * **Language:** Python
+* **UI Framework:** Streamlit
 
 ### AI & Machine Learning
 * **LLM Models:** Google Gemini Pro & Gemini Flash
 * **LLM SDK:** `google-generativeai` (for interacting with the Gemini API)
 * **Vector Database (RAG):** ChromaDB
 * **Video/Image Processing:** OpenCV
-* **Optical Character Recognition (OCR):** Pytesseract
-* **Image Manipulation:** Pillow (often used with OpenCV/Pytesseract for preprocessing frames)
 
 ### Data Handling & APIs
-* **Video Downloader:** `pytube` (or a similar library for accessing the video stream)
 * **Transcript Fetching:** `youtube-transcript-api`
 
+### Gen AI
+* **Langchain**
+* **Role based Prompting**
+* **Few Shot Prompting**
+* **Case based Prompting**
+
 ### Document & Environment
-* **Document Generation:**
-    * `python-docx` (for creating .docx Word files)
-    * `fpdf2` or `ReportLab` (for generating PDF documents)
 * **Environment Management:** `python-dotenv` (for loading API keys from the `.env` file)
 
 ---
