@@ -1,4 +1,4 @@
-# 🚀 U-Tube AI: Beyond the Transcript
+# 👁️ U-Tube AI: Beyond the Transcript
 
 > While most AI agents only listen to YouTube videos, mine watches, capturing the complete picture to deliver unparalleled understanding and truly comprehensive notes.
 
