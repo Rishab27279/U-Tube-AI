@@ -62,7 +62,7 @@ You will need a Google AI Studio API key to use the Gemini models.
     copy example.env .env
  **Add your API Key:** Open the newly created `.env` file and add your Google AI Studio API key.
     ```env
-    GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+    GOOGLE_API_KEY=YOUR_API_KEY_HERE
     ```
 
 ### Installation for MacOS & Linux
@@ -75,7 +75,7 @@ You will need a Google AI Studio API key to use the Gemini models.
     cp example.env .env
 **Add your API Key:** Open the newly created `.env` file and add your Google AI Studio API key.
     ```env
-    GOOGLE_API_KEY="YOUR_API_KEY_HERE"
+    GOOGLE_API_KEY=YOUR_API_KEY_HERE
     ```
 
 ---
@@ -85,10 +85,31 @@ You will need a Google AI Studio API key to use the Gemini models.
 To start generating notes, run the main application script and provide a YouTube video URL when prompted.
 
 ```sh
-python main.py
+streamlit run app.py
+```
 
+## 🤝 Contributing
 
+I warmly welcome contributions! Whether it's bug fixes, new features, or documentation improvements, please feel free to open issues and submit pull requests.
 
+- 🐛 Bug fixes
+- ✨ New features
+- 📖 Documentation improvements
+- 🎨 UI/UX enhancements
+- ✨ Test on State-of-the-Art Benchmark
 
+## ⭐ Support
 
-    
+If you find this project helpful, your support would mean the world:
+
+- **Give it a star ⭐**
+- **Share your feedback**
+- **Try it out and report any issues**
+
+<br>
+<p align="center">
+  ---
+  <br>
+  <strong>Made with ❤️ & 🔥 for the community</strong>
+  <br>
+</p>
