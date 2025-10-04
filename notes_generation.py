@@ -1646,7 +1646,6 @@ def generate_comprehensive_notes(video_id: str,
                                     batch = frame_paths[i:i+MAX_FRAMES_PER_BATCH]
                                     ocr_results.extend(batch_ocr_processing(batch))
                                 
-                                # ✅ FIX: Move these lines INSIDE the if block
                                 text_frames = sum(1 for r in ocr_results if r.get('has_text', False))
                                 print(f"      OCR complete: {text_frames}/{len(ocr_results)} frames contain text")
                                 
