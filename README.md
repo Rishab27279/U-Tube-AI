@@ -32,67 +32,55 @@ The final output isn't just a summary; it's a **synthesized knowledge asset**. B
 
 ### Workflow at Glance:
 
-    [START: User provides YouTube URL and selects a Task & Language]
-     |
-     V
-    [1. Transcript Generation (via Flash Model)]
-     |
-     V
-    (Raw Transcript)
-     |
-     V
-    [2. Language Processing]
-     |
-     +--> (If language != English) --> [Translate Transcript] --> (Processed Transcript)
-     |
-     L--> (If language == English) -----------------------------> (Processed Transcript)
-     |
-     |
-     +-------------------------------------------------------------------------------------------+
-     |                                                                                           |
-     V                                                                                           V
-    [BRANCH 1: INTERACTIVE TASKS]                                         [BRANCH 2: GENERATIVE TASKS]
-     |                                                                                           |
-     +--> [Task A: Translate Video]                                       +--> [Task C: Important Points]
-     |    |                                                                |    |
-     |    L--> (Output: The final Processed Transcript)                    |    L--> [C1. Topic Extraction (Flash)] -> (Output: Detailed Topics & Subtopics)
-     |                                                                    |
-     |                                                                    |
-     L--> [Task B: Chat with Video]                                       L--> [Task D: Note Generation]
-          |                                                                    |
-          +--> [B1. Vectorize Transcript] -> (Embeddings)                  |    (Uses "Important Points" as a base)
-          |    |                                                           |
-          |    L--> [B2. Create Vector DB (Chroma)]                        |    +--> [D1. Initial Note Gen (Pro)] -> (Transcript-only notes based on topic structure)
-          |                                                                |    |
-          |    (User asks a question...)                                   |    |
-          |                                                                |    +--> [D2. Visuals Decision]
-          +--> [B3. Find Relevant Chunks (ChromaDB Search)]                |    |    |
-          |    |                                                           |    |    L--> (If Visuals = NO) --> (Output: Transcript-only notes) --> [Step D6]
-          |    L--> [B4. Identify Time Frames (Flash)]                     |    |
-          |                                                                |    L--> (If Visuals = YES)
-          +--> [B5. Initial Answer Generation (Pro)]                       |         |
-          |    (Output: Answer, is_ocr_needed, confidence, reasoning)      |         +--> [D3. Visual Data Extraction]
-          |                                                                |         |    |
-          +--> [B6. OCR Decision]                                          |         |    +--> [Adaptive Frame Sampling] -> (Key Frames)
-          |    |                                                           |         |    |
-          |    +--> (If OCR needed = YES)                                  |         |    L--> [OCR with Flash Model] -> (Batched OCR Texts)
-          |    |    |                                                      |         |
-          |    |    +--> [Extract OCR from time frames]                     |         +--> [D4. Iterative Note Enhancement (Flash Loop)]
-          |    |    |                                                      |         |    (Processes 2 sub-topics per loop)
-          |    |    L--> [B7. Refine Answer (Pro)] -> (Initial ans + OCR)   |         |    |
-          |    |                                                           |         |    L--> (Input: Pro's notes + OCR texts)
-          |    L--> (If OCR needed = NO) --> (Use initial answer)            |         |
-          |                                                                |         L--> (Output: Rich, multi-modal notes for all sub-topics)
-          +--> [B8. Confidence Check & Loop]                               |
-          |    (If confidence is low, repeat B5-B8 up to 3 times)          |         +--> [D5. Final Assembly] -> (Final Document Content)
-          |                                                                |
-          L--> (Output: Final, high-confidence answer)                     |         L--> [D6. Download Options]
-                                                                           |
-                                                                           +--> (Choice A: Markdown File)
-                                                                           |
-                                                                           +--> (Choice B: PDF Document)
-                                                                           |
-                                                                           L--> (Choice C: Word Document)
+                                              [START: User provides YouTube URL, Task, & Language]
+                                                                |
+                                                                V
+                                               [1. Transcript Generation (via Flash Model)]
+                                                                |
+                                                                V
+                                                          (Raw Transcript)
+                                                                |
+                                                                V
+                                               [2. Language Processing & Translation]
+                                                                |
+                                                                |
+                     +------------------------------------------+------------------------------------------+
+                     |                                          |                                          |
+                     V                                          V                                          V
+    [BRANCH 1: INTERACTIVE TASKS]                   (Processed Transcript)                  [BRANCH 2: GENERATIVE TASKS]
+                     |                                                                                         |
+                     |                                                                                         |
+    +----------------+-----------------+                                                   +-------------------+-----------------+
+    |                                  |                                                   |                                     |
+    V                                  V                                                   V                                     V
+    [Task A: Translate Video]          [Task B: Chat with Video]                           [Task C: Important Points]            [Task D: Note Generation]
+    |                                  |                                                   |                                     |
+    L--> (Output: Final                +-->[B1. Vectorize & Create ChromaDB]                L-->[C1. Topic Extraction (Flash)]    (Uses "Imp. Points" as base)
+         Processed Transcript)         |                                                        |                                |
+                                       +-->[B3. Find Chunks & Time Frames (Flash)]             L-->(Output: Detailed              +-->[D1. Initial Note Gen (Pro)]
+                                       |                                                            Topics & Subtopics)           |   (Transcript-only notes)
+                                       +-->[B5. Initial Answer Gen (Pro)]                                                         |
+                                       |     |                                                                                    +-->[D2. Visuals Decision]
+                                       |     L-->(Output: Answer, is_ocr_needed, confidence)                                      |    |
+                                       |                                                                                         |    +-->(If Visuals = NO)-->[D6]
+                                       +-->[B6. OCR Decision]                                                                     |
+                                       |    |                                                                                     L-->(If Visuals = YES)
+                                       |    +-->(If YES)-->[B7. Refine with OCR (Pro)]                                             |
+                                       |                                                                                         |    +-->[D3. Visual Extraction]
+                                       +-->[B8. Confidence Check & Loop]                                                         |    |    (Adaptive Sampling/OCR)
+                                       |    (If low, repeat B5-B8 up to 3x)                                                        |    |
+                                       |                                                                                         |    +-->[D4. Iterative Loop (Flash)]
+                                       L-->(Output: Final, high-confidence answer)                                                |    |    (Enhances 2 sub-topics
+                                                                                                                                 |    |     at a time with OCR)
+                                                                                                                                 |    |
+                                                                                                                                 |    L-->[D5. Final Assembly]
+                                                                                                                                 |         |
+                                                                                                                                 |         V
+                                                                                                                                 L-->[D6. Download Options]
+                                                                                                                                      |
+                                                                                                                                      +-->(.md File)
+                                                                                                                                      +-->(.pdf Document)
+                                                                                                                                      L-->(.docx Document)
 
 ## 🛠️ Tech Stack
 
