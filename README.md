@@ -32,57 +32,67 @@ The final output isn't just a summary; it's a **synthesized knowledge asset**. B
 
 ### Workflow at Glance:
 
-    [START: User provides a YouTube Video URL]
+    [START: User provides YouTube URL and selects a Task & Language]
+     |
+     V
+    [1. Transcript Generation (via Flash Model)]
+     |
+     V
+    (Raw Transcript)
+     |
+     V
+    [2. Language Processing]
+     |
+     +--> (If language != English) --> [Translate Transcript] --> (Processed Transcript)
+     |
+     L--> (If language == English) -----------------------------> (Processed Transcript)
      |
      |
-     +--> [1. Data Ingestion & Parallel Processing]
-     |    |
-     |    |--> [A. VISUAL ANALYSIS PATH]
-     |    |    |
-     |    |    +--> [Step A1: Video Stream Access] -> (Raw Video Frames)
-     |    |    |
-     |    |    +--> [Step A2: Adaptive Frame Sampling] -> (Selects Keyframes with high information density like slides, code, diagrams)
-     |    |    |
-     |    |    L--> [Step A3: Optical Character Recognition (OCR)] -> (Output: Extracted text from visuals, e.g., "def function():", "Q3 Financials")
-     |    |
-     |    |
-     |    L--> [B. AUDIO ANALYSIS PATH]
-     |         |
-     |         L--> [Step B1: Transcript Extraction] -> (Output: Full spoken transcript with timestamps)
-     |
-     |
-     +--> [2. Initial Structuring with Gemini-Flash]
-     |    (Input: Both visual text and spoken transcript are fed to the nimble model)
-     |    |
-     |    L--> [Step 2A: Topic & Structure Mapping] -> (Output: A high-level outline of the video, e.g., "1. Intro, 2. Core Concept, 3. Demo, 4. Q&A")
-     |
-     |
-     +--> [3. Deep Synthesis with Gemini-Pro]
-     |    (For EACH section in the outline, the powerful model performs a deep dive)
-     |    |
-     |    L--> [Step 3A: Multi-Modal Fusion]
-     |         (Input: Outline section + relevant transcript part + relevant visual text)
-     |         |
-     |         L--> (Output: A rich, synthesized narrative chunk for that specific section, combining what was said and shown)
-     |
-     |
-     +--> [4. RAG-Powered Document Assembly with ChromaDB]
-     |    |
-     |    +--> [Step 4A: Storing Context] -> (Each synthesized chunk is stored in ChromaDB, preserving its metadata and relationship to the outline)
-     |    |
-     |    L--> [Step 4B: Coherent Retrieval] -> (The system retrieves the chunks in order, ensuring context flows correctly)
-     |    |
-     |    L--> (Output: Final, fully assembled document content in a raw, structured format)
-     |
-     |
-     L--> [5. Final Output Generation]
-          (User's choice determines the final format)
-          |
-          |--> [Choice A: Markdown] --> (Generates a clean, well-structured `notes.md` file)
-          |
-          |--> [Choice B: Word Document] --> (Generates a professional `notes.docx` file with headings)
-          |
-          L--> [Choice C: PDF] --> (Generates a portable, easy-to-share `notes.pdf` document)
+     +-------------------------------------------------------------------------------------------+
+     |                                                                                           |
+     V                                                                                           V
+    [BRANCH 1: INTERACTIVE TASKS]                                         [BRANCH 2: GENERATIVE TASKS]
+     |                                                                                           |
+     +--> [Task A: Translate Video]                                       +--> [Task C: Important Points]
+     |    |                                                                |    |
+     |    L--> (Output: The final Processed Transcript)                    |    L--> [C1. Topic Extraction (Flash)] -> (Output: Detailed Topics & Subtopics)
+     |                                                                    |
+     |                                                                    |
+     L--> [Task B: Chat with Video]                                       L--> [Task D: Note Generation]
+          |                                                                    |
+          +--> [B1. Vectorize Transcript] -> (Embeddings)                  |    (Uses "Important Points" as a base)
+          |    |                                                           |
+          |    L--> [B2. Create Vector DB (Chroma)]                        |    +--> [D1. Initial Note Gen (Pro)] -> (Transcript-only notes based on topic structure)
+          |                                                                |    |
+          |    (User asks a question...)                                   |    |
+          |                                                                |    +--> [D2. Visuals Decision]
+          +--> [B3. Find Relevant Chunks (ChromaDB Search)]                |    |    |
+          |    |                                                           |    |    L--> (If Visuals = NO) --> (Output: Transcript-only notes) --> [Step D6]
+          |    L--> [B4. Identify Time Frames (Flash)]                     |    |
+          |                                                                |    L--> (If Visuals = YES)
+          +--> [B5. Initial Answer Generation (Pro)]                       |         |
+          |    (Output: Answer, is_ocr_needed, confidence, reasoning)      |         +--> [D3. Visual Data Extraction]
+          |                                                                |         |    |
+          +--> [B6. OCR Decision]                                          |         |    +--> [Adaptive Frame Sampling] -> (Key Frames)
+          |    |                                                           |         |    |
+          |    +--> (If OCR needed = YES)                                  |         |    L--> [OCR with Flash Model] -> (Batched OCR Texts)
+          |    |    |                                                      |         |
+          |    |    +--> [Extract OCR from time frames]                     |         +--> [D4. Iterative Note Enhancement (Flash Loop)]
+          |    |    |                                                      |         |    (Processes 2 sub-topics per loop)
+          |    |    L--> [B7. Refine Answer (Pro)] -> (Initial ans + OCR)   |         |    |
+          |    |                                                           |         |    L--> (Input: Pro's notes + OCR texts)
+          |    L--> (If OCR needed = NO) --> (Use initial answer)            |         |
+          |                                                                |         L--> (Output: Rich, multi-modal notes for all sub-topics)
+          +--> [B8. Confidence Check & Loop]                               |
+          |    (If confidence is low, repeat B5-B8 up to 3 times)          |         +--> [D5. Final Assembly] -> (Final Document Content)
+          |                                                                |
+          L--> (Output: Final, high-confidence answer)                     |         L--> [D6. Download Options]
+                                                                           |
+                                                                           +--> (Choice A: Markdown File)
+                                                                           |
+                                                                           +--> (Choice B: PDF Document)
+                                                                           |
+                                                                           L--> (Choice C: Word Document)
 
 ## 🛠️ Tech Stack
 
