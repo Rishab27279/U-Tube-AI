@@ -14,6 +14,16 @@ This system is perfect for students, researchers, and professionals who need to 
 
 ---
 
+**The Problem with Existing Tools:**
+- **NoteGPT, Notta, MyMap.AI**: Extract YouTube transcripts and summarize text only—completely blind to slides, diagrams, and code shown on screen
+- **Direct VLM Processing**: Feeding entire videos to Gemini costs ~$139/hour at 258 tokens/sec, making it impractical for long educational content
+
+**U-Tube AI bridges this gap** by combining adaptive frame sampling with intelligent dual-model synthesis, reducing costs by 70-90% while capturing visual context that transcript-only tools miss entirely.
+
+Perfect for students, researchers, and professionals digesting technical tutorials, academic lectures, or slide-heavy presentations where visual content is critical.
+
+---
+
 ## 🧠 Key Features
 
 ### 1. True Visual Comprehension: Seeing What Others Miss
