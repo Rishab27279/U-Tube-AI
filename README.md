@@ -10,17 +10,17 @@
 
 U-Tube AI is a multi-modal AI agent that transforms YouTube videos into rich, actionable knowledge assets. Unlike traditional tools that rely solely on a video's transcript, U-Tube AI analyzes **both the audio and the visual stream**. It reads slides, understands diagrams, and captures code on screen, fusing what's said with what's shown to create notes that are incredibly detailed, accurate, and truly comprehensive.
 
-This system is perfect for students, researchers, and professionals who need to efficiently digest complex tutorials, technical presentations, or academic lectures without losing critical visual context.
+This system is perfect for **students**, **researchers**, and **professionals** who need to efficiently digest complex tutorials, technical presentations, or academic lectures without losing critical visual context.
 
 ---
 
 **The Problem with Existing Tools:**
-- **NoteGPT, Notta, MyMap.AI**: Extract YouTube transcripts and summarize text only—completely blind to slides, diagrams, and code shown on screen
-- **Direct VLM Processing**: Feeding entire videos to Gemini costs ~$139/hour at 258 tokens/sec, making it impractical for long educational content
+- **NoteGPT, Notta, MyMap.AI**: Extract YouTube transcripts and summarize text only—completely **blind to slides, diagrams, and code shown on screen**
+- **Direct VLM Processing**: Feeding entire videos to Gemini **costs ~$139/hour at 258 tokens/sec**, making it impractical for long educational content
 
 **U-Tube AI bridges this gap** by combining adaptive frame sampling with intelligent dual-model synthesis, reducing costs by 70-90% while capturing visual context that transcript-only tools miss entirely.
 
-Perfect for students, researchers, and professionals digesting technical tutorials, academic lectures, or slide-heavy presentations where visual content is critical.
+Hence, making it perfect for students, researchers, and professionals digesting technical tutorials, academic lectures, or slide-heavy presentations where visual content is critical.
 
 ---
 
@@ -28,7 +28,7 @@ Perfect for students, researchers, and professionals digesting technical tutoria
 
 ### 1. 🎯 True Multimodal Understanding: Beyond Transcripts
 
-Unlike mainstream tools that rely solely on YouTube's transcript API, U-Tube AI analyzes **both audio and visual streams**. Using **adaptive frame sampling**, it intelligently extracts key visual moments (slides, diagrams, code snippets) and employs **OCR** to capture text that would otherwise be lost. This approach addresses what research (CVPR 2025 AKS, BOLT) identifies as a critical gap: uniform processing performs poorly for long videos, but selective frame analysis improves accuracy while maintaining efficiency.
+Unlike mainstream tools that rely solely on YouTube's transcript API, U-Tube AI analyzes **both audio and visual streams**. Using **adaptive frame sampling**, it intelligently extracts key visual moments (slides, diagrams, code snippets) and employs **OCR** to capture text that would otherwise be lost. This approach addresses what **research (CVPR 2025 AKS, BOLT)** identifies as a **critical gap**: uniform processing performs poorly for long videos, but selective frame analysis improves accuracy while maintaining efficiency.
 
 **What You Get:**
 - Slide content extracted and integrated into notes
@@ -52,7 +52,7 @@ Instead of brute-forcing entire videos through expensive models, U-Tube AI uses 
 - Fuses transcript + extracted visual data into coherent narratives
 - Generates production-quality notes with rich context
 
-**Cost Impact:** Processing full hour-long videos with Gemini Pro alone costs ~$139. This dual-model approach reduces processing costs by an estimated **70-90%** while maintaining comprehensive understanding.
+**Cost Impact:** Processing full hour-long videos with Gemini Pro alone costs ~$139. This dual-model approach reduces processing cost significantly while maintaining comprehensive understanding.
 
 ---
 
@@ -71,7 +71,7 @@ This intelligent routing ensures you're not paying for OCR when transcripts alon
 ### 4. 📊 RAG-Powered Interactive Mode: Chat with Your Videos
 
 Beyond note generation, U-Tube AI implements a **vector-based RAG pipeline** (ChromaDB) that enables:
-- Semantic search across video content with timestamp retrieval
+- Semantic search across video content with timestamp retrieval (**Cosine Similarity**)
 - Q&A with context-aware responses drawing from both transcript and visual data
 - Multi-round conversations with confidence tracking
 - Automatic OCR integration when queries require visual context
@@ -104,7 +104,7 @@ Final notes aren't locked in a proprietary format. Download as:
 ## 🔬 Technical Approach: Research-Backed Methods
 
 **Frame Sampling Strategy:**
-Built on principles from recent computer vision research (AdaFrame CVPR 2019, AKS CVPR 2025, BOLT 2025) showing that intelligent frame selection outperforms uniform sampling by 5-6% while processing 70-85% fewer frames.
+Built on principles from recent computer vision research **(AdaFrame CVPR 2019, AKS CVPR 2025, BOLT 2025)** showing that intelligent frame selection outperforms uniform sampling by**5-6%** while processing **70-85%** fewer frames.
 
 **Multimodal Fusion:**
 Implements hierarchical synthesis where structural analysis (topics/subtopics) guides targeted visual extraction, ensuring OCR effort focuses on information-dense segments rather than redundant frames.
@@ -116,9 +116,9 @@ Gemini's video processing capability (documented at 258 tokens/sec @ 1 FPS) make
 
 ## 💡 Why This Matters
 
-Educational YouTube videos increasingly rely on visual aids—code editors, slides, architectural diagrams—that don't appear in auto-generated transcripts. As of 2025, major AI note-taking tools still process only audio/text, leaving students manually pausing videos to copy slide content.
+Educational YouTube videos (Strivers, Programming with Most, CampusX, etc..) increasingly rely on visual aids—code editors, slides, architectural diagrams—that don't appear in auto-generated transcripts. As of 2025, major AI note-taking tools still process only audio/text, leaving students manually pausing videos to copy slide content.
 
-U-Tube AI solves this by treating visual information as **first-class data**, not an afterthought, while maintaining practical cost efficiency for real-world use.
+U-Tube AI is my try of solving this by treating visual information as **first-class data**, not an afterthought, while maintaining practical cost efficiency for real-world use.
 
 ### Workflow at Glance:
 
