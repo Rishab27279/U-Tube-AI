@@ -3,6 +3,8 @@
 > While most AI agents only listen to YouTube videos, mine watches, capturing the complete picture to deliver unparalleled understanding and truly comprehensive notes.
 
 ![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)
+![Framework](https://img.shields.io/badge/UI-Streamlit-red.svg)
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg)
 
 ---
 
